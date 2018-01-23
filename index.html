@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body class="back">
+    <div class="container main" ng-app="myApp" ng-controller="myCtrl" id="my_id">
+      <div class="row">
+        <div class="col-md-9 col-xs-12">
+          <div class="page-header">
+            <h2><span class="glyphicon glyphicon-chevron-left"></span> Order Summary</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-if="items.length > 0">
+        <div class="col-md-9">
+          <table class="table table-responsive">
+            <tr>
+              <th class="col-md-7">Items({{items.length}})</th>
+              <th class="col-md-3" style="text-align: center;">Qty</th>
+              <th class="col-md-2" style="text-align: center;">Price</th>
+            </tr>
+            <tr ng-repeat="item in items track by $index" class="linear-transition">
+              <td class="col-md-7 col-xs-7" style="padding: 0px 10px;">
+                <div class="card" style="padding: 0px;">
+                  <table class="table" style="margin-bottom: 0px;">
+                    <tr>
+                      <td class="col-md-1 col-xs-1">
+                        <img style="height: 25px; float: left; margin: 0px 10px 0px 5px;" src="{{item.img_url}}" alt=""/>
+                      </td>
+                      <td class="col-md-10 col-xs-10"><span class="font-item">{{item.name}}</span></td>
+                      <td class="col-md-1 cursor-pointer"><span class="font-item" ng-click="removeItem($index)">X</span></td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+              <td class="col-md-3" align="center">
+                <div class="row">
+                  <div class="col-md-2 col-xs-0"></div>
+                  <div class="col-md-2 col-xs-1">
+                    <span class="font-qty cursor-pointer" ng-click="decreaseQty($index)"> - </span>
+                  </div>
+                  <div class="col-md-2 col-xs-1 card-qty">
+                    <span ng-bind="item.qty"></span>
+                  </div>
+                  <div class="col-md-2 col-xs-1">
+                    <span class="font-qty cursor-pointer" ng-click="increaseQty($index)"> + </span>
+                  </div>
+                  <div class="col-md-2 col-xs-0"></div>
+                </div>
+              </td>
+              <td class="col-md-2" align="center">{{item.price | currency }}</td>
+            </tr>
+            </table>
+        </div>
+        <div class="col-md-3">
+          <div class="card" style="padding: 0px;">
+              <div style="padding: 15px;">
+                <p><b>Total</b></p>
+                <p>Items ({{items.length}}) <span style="float: right;">: {{total | currency }}</span></p>
+                <p>Discount <span style="float: right;">: - {{discount | currency }}</span></p>
+                <p>Type Discount <span style="float: right;">: - {{type_discount | currency }}</span></p>
+              </div>
+              <div style="padding:10px; background: #ccc;">
+                <p>Order Total <span style="float: right;">: {{order_total | currency }}</span></p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-if="items.length < 1">
+        <br/><br/>
+        <div class="col-md-3 col-xs-0">
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <div class="row">
+            <img src="img/empty_cart.png" style="float: right;" class="img img-responsive">
+          </div>
+          <br/><br/>
+          <button class="btn btn-default btn-lg" style="width: 100%; text-align: center;" ng-click="reloadFresh()">Click here to reload fresh items</button>
+        </div>
+      </div>
+
+      <div id="snackbar">Item has been deleted</div>
+    </div>
+    <br/>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="js/jquery-3.1.1.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="js/angular.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/index.js"></script>
+    </body>
+  </html>
